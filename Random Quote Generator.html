@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Random Quote Generator</title>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<style>
+			body{
+			background-color:gray;
+			}
+			#box{
+				background-color:white;
+				color: black;
+				padding: 10px 30px 10px 30px;
+				margin-bottom:10px;
+				margin-top:25%;
+			}
+			#name{
+				text-align:right;
+			}
+			
+		</style>
+		<script type="text/javascript">
+			function setRandomQuote(){
+				$.getJSON("http://quotes.stormconsultancy.co.uk/quotes.json", function(json){
+					var num = Math.floor(Math.random()*44);
+					$("#quote").html("<strong><i class='fa fa-fw fa-quote-left'></i></strong>"+json[num].quote);
+					$("#name").html("<em>- " + json[num].author+"</em>");
+					$(".twitter-share-button").attr("href", "https://twitter.com/intent/tweet?text="+'"'+json[num].quote+'"'+" -" +json[num].author);
+				});
+			};
+			$(document).ready(function(){
+				setRandomQuote();
+				$("#newQuoteButton").on("click", function(){
+						setRandomQuote();
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div id="box">
+					<h2 class="text-center" id="quote"><h2>
+					<h3 id="name"></h3>
+					
+					
+					<p style="display: inline-block; text-align: left;"><a href="https://twitter.com/intent/tweet?text=Hello world" class="twitter-share-button" data-show-count="false"><button class="btn btn-primary"><i class="fa fa-fw fa-twitter"></i>Tweet</button></a></p>
+					<p style="display: inline-block; float:right;"><button class="btn" id="newQuoteButton">Get New Quote</button></p>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+			
+	</body>
+</html>
